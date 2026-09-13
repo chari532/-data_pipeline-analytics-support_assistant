@@ -89,3 +89,6 @@ in the sort so ties (equal rating + price) order identically in both approaches.
 | `books_clean.csv` | Cleaned data |
 | `books.db` | SQLite database |
 | `query_output.txt` | Saved output of all queries |
+
+## Status
+Module 1 complete and tested.
