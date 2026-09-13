@@ -92,3 +92,6 @@ in the sort so ties (equal rating + price) order identically in both approaches.
 
 ## Status
 Module 1 complete and tested.
+
+## Author Notes
+This module was built, tested, and verified end-to-end as part of the Zepto Data & AI Platform capstone project.
