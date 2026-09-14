@@ -2,7 +2,17 @@
 
 --- q_1 ---
 
-Error executing q_1: 'charmap' codec can't encode characters in position 677-678: character maps to <undefined>
+                                                                   title  price_inr  rating
+  The No. 1 Ladies' Detective Agency (No. 1 Ladies' Detective Agency #1)    6087.35       4
+                                        A Year in Provence (Provence #1)    6000.84       4
+                                                     The Past Never Ends    5960.75       4
+                                 A Flight of Arrows (The Pathfinders #2)    5858.42       5
+                   Murder at the 42nd Street Library (Raymond Ambler #1)    5734.98       4
+The Bachelor Girl's Guide to Murder (Herringford and Watts Mysteries #1)    5517.65       5
+      Full Moon over Noahâs Ark: An Odyssey to Mount Ararat and Beyond    5214.86       4
+                                  A Time of Torment (Charlie Parker #14)    5100.92       5
+                                                           Sharp Objects    5045.01       4
+                         The Murder of Roger Ackroyd (Hercule Poirot #4)    4652.55       4
 ----------------------------------------------------------------------
 
 --- q_2 ---

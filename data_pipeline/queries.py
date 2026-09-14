@@ -1,4 +1,7 @@
 import sqlite3
+import sys
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
 import pandas as pd
 
 conn = sqlite3.connect("books.db")
