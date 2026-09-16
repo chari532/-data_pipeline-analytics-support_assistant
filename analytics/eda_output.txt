@@ -1,0 +1,93 @@
+<class 'pandas.DataFrame'>
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 15 columns):
+ #   Column       Non-Null Count  Dtype   
+---  ------       --------------  -----   
+ 0   survived     891 non-null    int64   
+ 1   pclass       891 non-null    int64   
+ 2   sex          891 non-null    str     
+ 3   age          714 non-null    float64 
+ 4   sibsp        891 non-null    int64   
+ 5   parch        891 non-null    int64   
+ 6   fare         891 non-null    float64 
+ 7   embarked     889 non-null    str     
+ 8   class        891 non-null    category
+ 9   who          891 non-null    str     
+ 10  adult_male   891 non-null    bool    
+ 11  deck         203 non-null    category
+ 12  embark_town  889 non-null    str     
+ 13  alive        891 non-null    str     
+ 14  alone        891 non-null    bool    
+dtypes: bool(2), category(2), float64(2), int64(4), str(5)
+memory usage: 80.7 KB
+         survived      pclass         age       sibsp       parch        fare
+count  891.000000  891.000000  714.000000  891.000000  891.000000  891.000000
+mean     0.383838    2.308642   29.699118    0.523008    0.381594   32.204208
+std      0.486592    0.836071   14.526497    1.102743    0.806057   49.693429
+min      0.000000    1.000000    0.420000    0.000000    0.000000    0.000000
+25%      0.000000    2.000000   20.125000    0.000000    0.000000    7.910400
+50%      0.000000    3.000000   28.000000    0.000000    0.000000   14.454200
+75%      1.000000    3.000000   38.000000    1.000000    0.000000   31.000000
+max      1.000000    3.000000   80.000000    8.000000    6.000000  512.329200
+(891, 15)
+Missing % per column:
+deck           77.22
+age            19.87
+embarked        0.22
+embark_town     0.22
+dtype: float64
+Series([], dtype: int64)
+Saved plots/univariate_age_fare.png
+Age outliers (IQR rule): 65  (bounds: [2.50, 54.50])
+Fare outliers (IQR rule): 114  (bounds: [-26.76, 65.66])
+
+Fare -> mean: 32.10, median: 14.45, mode: 8.05
+Fare distribution is right-skewed(mean > median > mode)
+
+Survival rate by sex -> female: 0.740, male: 0.189
+Survival rate by pclass 1: 0.626
+Survival rate by pclass 2: 0.473
+Survival rate by pclass 3: 0.242
+  sex=female, pclass=1: 0.967
+  sex=female, pclass=2: 0.921
+  sex=female, pclass=3: 0.500
+  sex=male, pclass=1: 0.369
+  sex=male, pclass=2: 0.157
+  sex=male, pclass=3: 0.135
+
+Correlation matrix (6x6):
+          survived  pclass    age  sibsp  parch   fare
+survived     1.000  -0.336 -0.070 -0.034  0.083  0.255
+pclass      -0.336   1.000 -0.337  0.082  0.017 -0.548
+age         -0.070  -0.337  1.000 -0.233 -0.171  0.094
+sibsp       -0.034   0.082 -0.233  1.000  0.415  0.161
+parch        0.083   0.017 -0.171  0.415  1.000  0.218
+fare         0.255  -0.548  0.094  0.161  0.218  1.000
+
+Top 2 strongest correlations (by absolute value):
+  pclass <-> fare: -0.548
+  sibsp <-> parch: 0.415
+
+Interpretation: 'survived' and 'pclass' show a moderate negative correlation passengers in higher-numbered (lower) classes had lower survival odds. 'fare' and 'pclass' show a strong negative correlation, which makes sense since fare is essentially a proxy for class (1st class tickets cost more).
+Interpretation: Across all three passenger classes, women survived at a much higher rate than men. The gap is largest in 1st and 2nd class, where women's survival rate is close to certain, while male survival drops sharply as class number increases -- suggesting both gender-based evacuation priority and class privilege combined to shape outcomes.
+Interpretation: Survivors and non-survivors have broadly similar median ages (~28), but the survivor group shows a slightly higher concentration of very
+young children -- its lower whisker extends almost to age 0, while young
+children among non-survivors appear only as rare outlier points. Among older
+passengers, the non-survivor group has a denser cluster of outliers in the
+55-74 range, while the single oldest passenger in the dataset (around 80)
+happened to survive.
+
+Interpretation: Passengers who paid higher fares (upper portion of the chart) survived at a visibly higher rate than those who paid low fares, regardless of age. This reinforces the class/fare effect seen in the correlation heatma money bought a materially better chance of survival on this ship.
+
+
+Interpretation: Passengers who embarked at Cherbourg ('C') had a noticeably higher survival rate than those from Southampton ('S') or Queenstown. This is likely a confound rather than a causal effect: Cherbourg passengers were disproportionately 1st class, so this chart is best read together with the class based charts above rather than in isolation.
+
+======================================================================
+Z score standardization (EDA sanity check)
+======================================================================
+
+age BEFORE mean: 29.315, std: 12.985
+age AFTER    mean: 0.000, std: 1.000
+
+fare BEFORE mean: 32.097, std: 49.698
+fare AFTER    mean: 0.000, std: 1.000
