@@ -1,0 +1,6 @@
+[33md07d6a7[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Add analytics module: EDA, modeling pipeline, and README
+[33meb66f66[m Add README documentation for analytics module
+[33me76b90c[m Update query output with encoding fix
+[33m6e5314f[m[33m ([m[1;32mfeature/data-pipeline[m[33m)[m Final documentation update for data_pipeline
+[33m4de66d0[m Add README documentation for data_pipeline module
+[33mf6cab6b[m Add scraping, cleaning, DB loading and SQL queries for data_pipeline module
