@@ -106,3 +106,6 @@ etc.), not data-entry errors, so they were retained.
 | `titanic.csv` | Cleaned dataset (committed offline fallback) |
 | `plots/` | All EDA and modeling charts |
 | `best_titanic_pipeline.pkl` | Saved best full pipeline (joblib) |
+
+## Status
+Module 2 (analytics) complete and tested end-to-end.
