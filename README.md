@@ -1,6 +1,6 @@
 ### Multi-Module Data & AI Platform
 
-This repository contains a comprehensive multi-module data and artificial intelligence platform structured as a single unified project. It consists of three functional modules situated at the root directory, coordinated via a centralized orchestration interface. 
+This repository contains a comprehensive multi-module platform structured as a single unified project. It consists of three independent functional modules situated at the root directory, coordinated via a centralized orchestration interface. 
 
 ### Project Structure
 
@@ -12,17 +12,17 @@ text
 ├── README.md                # Root project documentation (This file)
 │
 ├── data_pipeline/           # Module 1: Books Web Scraper & SQLite Database
-│   ├── scrape.py            # Web scraper for books.toscrape.com
-│   ├── clean.py             # Data cleaning and currency normalization
-│   ├── load_db.py           # SQLite database schema initialization and loading
-│   └── queries.py           # SQL execution and pandas verification engine
+│   ├── scrape.py            # Scrapes books.toscrape.com into books_raw.csv
+│   ├── clean.py             # Cleans data & converts currency into books_clean.csv
+│   ├── load_db.py           # Builds SQLite schema and loads cleaned data
+│   └── queries.py           # Runs 6 SQL queries + equivalent pandas verification
 │
 ├── analytics/               # Module 2: Titanic Predictive Modeling Engine
-│   ├── eda.py               # Exploratory Data Analysis and visualization
-│   └── modeling.py          # Machine learning classification and regression pipeline
+│   ├── eda.py               # Loads, profiles, cleans data -> titanic.csv + plots/
+│   └── modeling.py          # Pipelines, classifiers, tuning, and regression side-task
 │
 └── support_assistant/       # Module 3: Zepto Local GenAI RAG Service
-    ├── ingest.py            # Local document chunking and vector indexing
+    ├── ingest.py            # Local document chunking and vector indexing to ChromaDB
     ├── graph.py             # LangGraph-driven routing and generation orchestration
     └── main.py              # FastAPI application server interface
 
@@ -32,7 +32,7 @@ Use code with caution.
 
 ### Dependency Strategy Notice
 
-* **Chosen Approach:** This project uses a single **consolidated root-level requirements.txt** file to handle all sub-system dependencies simultaneously.
+* **Chosen Approach:** This project uses a single **consolidated root-level requirements.txt** file to handle all sub-system dependencies simultaneously. No individual, separate requirements files are used per module.
 
 To set up the complete execution environment, run the following commands: 
 
@@ -51,13 +51,9 @@ pip install -r requirements.txt
 
 Use code with caution.
 
-### How to Run the Modules
+### Module Overview & Execution Instructions
 
-You can execute each module individually through standard execution paths, or manage them automatically via the centralized root orchestrator. 
-
-### Centralized Orchestration (Recommended)
-
-To run or launch any of the three modules from a single unified interface, execute the root coordinator tool: 
+You can manage and run all three systems automatically via the centralized root orchestrator by executing: 
 
 bash
 
@@ -65,44 +61,63 @@ python main.py
 
 Use code with caution.
 
-### Manual Individual Execution
+Alternatively, you can navigate into individual directories or target the files manually as detailed below: 
 
-### Module 1: Data Pipeline
+### Module 1: Data Pipeline (/data_pipeline)
 
-Processes book data sequentially through extraction, transformations, and persistence: 
+* **What it does:** Scrapes book data from books.toscrape.com, cleans raw elements, converts prices to INR using a fixed baseline rate (1 GBP = 105.50 INR), loads data into a normalized SQLite database, and verifies SQL queries against equivalent pandas operations.
+* **How to run (in order):** 
 
 bash
 
-python data_pipeline/scrape.py
-python data_pipeline/clean.py
-python data_pipeline/load_db.py
-python data_pipeline/queries.py
+python data_pipeline/scrape.py       # Scrapes 3 categories -> books_raw.csv
+python data_pipeline/clean.py        # Cleans + converts currency -> books_clean.csv
+python data_pipeline/load_db.py      # Builds SQLite schema and loads data -> books.db
+python data_pipeline/queries.py      # Runs 6 SQL queries + pandas verification
+
+Use code with caution.
+* **To save query output:** 
+
+bash
+
+python data_pipeline/queries.py > data_pipeline/query_output.txt
 
 Use code with caution.
 
-### Module 2: Analytics Engine
+### Module 2: Analytics Engine (/analytics)
 
-Performs data profiling, produces visualizations, and trains the machine learning classifiers: 
+* **What it does:** Profiles and cleans the classic Titanic dataset, tells a visual data story about survival factors, and executes a full machine learning modeling pipeline (Logistic Regression, Decision Trees, Random Forests) alongside an imbalance-handling assessment and a fare prediction regression task.
+* **How to run (in order):** 
 
 bash
 
-python analytics/eda.py
-python analytics/modeling.py
+python analytics/eda.py              # Part A: Profiling, cleaning, charts -> titanic.csv
+python analytics/modeling.py         # Part B: Preprocessing, training, tuning, saving pipeline
 
 Use code with caution.
 
-### Module 3: Support Assistant
+*Note: If internet access is unavailable to download the dataset during evaluation, modeling.py fallback logic automatically reads the locally committed offline titanic.csv text asset.*
 
-Indexes local knowledge base documents and hosts the REST API web framework: 
+### Module 3: Support Assistant (/support_assistant)
+
+* **What it does:** A complete Retrieval-Augmented Generation (RAG) assistant for Zepto utilizing a local dictionary vector index in ChromaDB, orchestrated by LangGraph, and served through schema-validated JSON FastAPI endpoints.
+* **How to run (in order):** 
 
 bash
 
-# Vectorize local text documents into ChromaDB
+# Step A: Embed the policy documents locally into ChromaDB
 python support_assistant/ingest.py
 
-# Spin up the local FastAPI service deployment
+# Step B: Spin up the FastAPI service webserver
 uvicorn support_assistant.main:app --host 127.0.0.1 --port 8000 --reload
 
 Use code with caution.
+* **Interactive UI:** Open your browser and navigate to http://127.0.0.1:8000/docs to test endpoints via the visual Swagger interface.
+* **Docker Deployment alternative:** 
 
-Once the service is active, visit the interactive API dashboard directly at http://127.0.0.1:8000/docs.
+bash
+
+docker build -t zepto-support-assistant support_assistant/
+docker run -p 7860:7860 zepto-support-assistant
+
+Use code with caution.
