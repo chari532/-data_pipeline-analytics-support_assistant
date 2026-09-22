@@ -1,4 +1,4 @@
-### Multi-Module Data & AI Platform
+### Modules Data & AI Platform
 
 This repository contains a comprehensive multi-module platform structured as a single unified project. It consists of three independent functional modules situated at the root directory, coordinated via a centralized orchestration interface. 
 
